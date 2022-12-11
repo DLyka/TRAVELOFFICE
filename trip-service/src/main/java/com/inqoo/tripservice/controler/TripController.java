@@ -5,6 +5,7 @@ import com.inqoo.tripservice.model.Trip;
 import com.inqoo.tripservice.model.exception.ErrorMessage;
 import com.inqoo.tripservice.model.exception.NoTripFoundException;
 import com.inqoo.tripservice.model.exception.WrongParameters;
+import com.inqoo.tripservice.service.ConversionTripService;
 import com.inqoo.tripservice.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,19 +26,22 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
+    @Autowired
+    private ConversionTripService conversionTripService;
 
     //path
     @PostMapping(consumes = "application/json")
     public ResponseEntity createTrip(@RequestBody TripDTO trip) {
-        System.out.println(trip);
-//        tripService.saveTrip(trip);
-//
-//        URI savedCityUri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(trip.getId())
-//                .toUri();
-//        return ResponseEntity.created(savedCityUri).build();
-        return null;
+
+        Trip tripone = conversionTripService.convertTrip(trip);
+        tripService.saveTrip(tripone);
+
+
+        URI savedCityUri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(trip.getId())
+                .toUri();
+        return ResponseEntity.created(savedCityUri).build();
     }
 
     @GetMapping(path = "/", produces = "application/json")

@@ -1,8 +1,11 @@
 package com.inqoo.tavelofficeweb.controler;
 
 import com.inqoo.model.CustomerDTO;
+import com.inqoo.model.TripDTO;
 import com.inqoo.tavelofficeweb.model.Customer;
+import com.inqoo.tavelofficeweb.service.ConversionService;
 import com.inqoo.tavelofficeweb.service.CustomerService;
+import com.inqoo.tavelofficeweb.service.CustomerServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,10 @@ import java.util.List;
 public class CustomerControler {
     @Autowired
     private CustomerService customerService;
+@Autowired
+    private ConversionService conversionService;
+@Autowired
+    private CustomerServiceClient customerServiceClient;
 
     @GetMapping(path = "/", produces = "application/json")
     public List<Customer> customers( @RequestParam(name="firstNameFragment", required = false) String firstNameFragment,
@@ -35,7 +42,18 @@ public class CustomerControler {
     @PostMapping( consumes = "application/json")
     public ResponseEntity createNewTrip(@RequestBody CustomerDTO customer) {
 
-        System.out.println(customer);
+        Customer countryEntity = conversionService.Customerconvert(customer);
+        customerService.saveCustomer(countryEntity);
+
+       List<TripDTO> trips = customer.getTripDTOListt();
+
+        if (trips != null) {
+            trips.stream().forEach(c -> c.setCustomerID(countryEntity.getId()));
+            customerServiceClient.saveTrip(trips);
+
+        }
+
+
 
         URI savedCustomerId = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

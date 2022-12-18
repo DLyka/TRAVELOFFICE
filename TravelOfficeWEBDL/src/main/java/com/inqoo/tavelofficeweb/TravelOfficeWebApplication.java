@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing(auditorAwareRef = "auditorAwareProvider")
 @EnableJpaRepositories(repositoryFactoryBeanClass =
 		EnversRevisionRepositoryFactoryBean.class)
+//@EnableEurekaClient
 public class TravelOfficeWebApplication {
 	@Bean
 	public AuditorAware<String> auditorAwareProvider() {

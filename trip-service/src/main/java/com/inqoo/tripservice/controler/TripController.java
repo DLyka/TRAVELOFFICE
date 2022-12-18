@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+//@RequestMapping("/")
 //@RequestMapping("trips")
-public class TripController implements tripApi  {
+public class TripController {
+
 
     @Autowired
     private TripService tripService;

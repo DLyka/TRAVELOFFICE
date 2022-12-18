@@ -2,6 +2,7 @@ package com.inqoo.tavelofficeweb.controler;
 
 import com.inqoo.model.CustomerDTO;
 import com.inqoo.model.TripDTO;
+import com.inqoo.model.boundary.tripApi;
 import com.inqoo.tavelofficeweb.model.Customer;
 import com.inqoo.tavelofficeweb.service.ConversionService;
 import com.inqoo.tavelofficeweb.service.CustomerService;
@@ -34,6 +35,8 @@ public class CustomerControler  {
     }
 
 
+
+
     @GetMapping(path = "/{customerId}", produces = "application/json")
     public Customer customerById(@PathVariable("customerId") Integer id) {
 
@@ -41,29 +44,16 @@ public class CustomerControler  {
 
     }
 
+
+
+
+
     @PostMapping( consumes = "application/json")
-    public ResponseEntity createNewTrip(@RequestBody CustomerDTO customer) {
+    public void create(@RequestBody TripDTO cust) {
 
-        Customer countryEntity = conversionService.Customerconvert(customer);
-        customerService.saveCustomer(countryEntity);
-
-       List<TripDTO> trips = customer.getTripDTOListt();
-
-        if (trips != null) {
-            trips.stream().forEach(c -> c.setCustomerID(countryEntity.getId()));
-            customerServiceClient.saveTrip(trips);
-
-        }
+        api.create(cust);
+        System.out.println("Succesful created!");
 
 
-
-        URI savedCustomerId = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(customer.getId())
-                .toUri();
-        return ResponseEntity.created(savedCustomerId).build();
     }
-
-
-
 }

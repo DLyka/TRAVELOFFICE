@@ -16,12 +16,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("customers")
-public class CustomerControler {
+public class CustomerControler  {
+    @Autowired
+    private tripApi api;
     @Autowired
     private CustomerService customerService;
-@Autowired
+    @Autowired
     private ConversionService conversionService;
-@Autowired
+    @Autowired
     private CustomerServiceClient customerServiceClient;
 
     @GetMapping(path = "/", produces = "application/json")

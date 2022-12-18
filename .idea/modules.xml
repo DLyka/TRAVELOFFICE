@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/TRAVELOFFICE.iml" filepath="$PROJECT_DIR$/.idea/TRAVELOFFICE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TravelOfficeWEBDL/TavelOfficeWeb.iml" filepath="$PROJECT_DIR$/TravelOfficeWEBDL/TavelOfficeWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/to-common-data/to-common-data.iml" filepath="$PROJECT_DIR$/to-common-data/to-common-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trip-service/trip-service.iml" filepath="$PROJECT_DIR$/trip-service/trip-service.iml" />
+    </modules>
+  </component>
+</project>

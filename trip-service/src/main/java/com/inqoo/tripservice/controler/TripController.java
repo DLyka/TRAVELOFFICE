@@ -1,6 +1,7 @@
 package com.inqoo.tripservice.controler;
 
 import com.inqoo.model.TripDTO;
+import com.inqoo.model.boundary.tripApi;
 import com.inqoo.tripservice.model.Trip;
 import com.inqoo.tripservice.model.exception.ErrorMessage;
 import com.inqoo.tripservice.model.exception.NoTripFoundException;
@@ -21,8 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("trips")
-public class TripController {
+//@RequestMapping("trips")
+public class TripController implements tripApi  {
 
     @Autowired
     private TripService tripService;
@@ -30,7 +31,7 @@ public class TripController {
     private ConversionTripService conversionTripService;
 
     //path
-    @PostMapping(consumes = "application/json")
+    @PostMapping(path = "/trips",consumes = "application/json")
     public ResponseEntity createTrip(@RequestBody TripDTO trip) {
 
         Trip tripone = conversionTripService.convertTrip(trip);
@@ -44,10 +45,20 @@ public class TripController {
         return ResponseEntity.created(savedCityUri).build();
     }
 
-    @GetMapping(path = "/", produces = "application/json")
+    //@GetMapping(path = "/trips", produces = "application/json")
     public List<Trip> trips(@RequestParam(name="tripDestinationFragment", required = false) String nameFragment){
         System.out.println("Zapytanie zawierało parametr 'tripDestinationFragment' o wartości: "+nameFragment);
         return tripService.getAllTrips(nameFragment);
+
+
+
+
+
+
+
+
+
+
     }
     @GetMapping(path = "/ByPrice", produces = "application/json")
     public List<Trip> tripsByPrice(@RequestParam double priceFrom, @RequestParam double priceTo) {
@@ -100,4 +111,6 @@ public class TripController {
         tripService.updateTrip(id, trip);
         return ResponseEntity.noContent().build();
     }
+
+
 }

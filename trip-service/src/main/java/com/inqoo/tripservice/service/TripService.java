@@ -6,6 +6,7 @@ import com.inqoo.tripservice.model.exception.NoTripFoundException;
 import com.inqoo.tripservice.model.exception.WrongParameters;
 import com.inqoo.tripservice.repository.TripJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.history.Revisions;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TripService {
+
 
 
     private final TripJpaRepository tripJpaRepository;
